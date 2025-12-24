@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Christmas Wishes 🎄</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ffc1cc, #ff4d4d);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Pages */
+.page {
+  display: none;
+  height: 100vh;
+  width: 100%;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  animation: slideFade 0.8s ease;
+}
+
+.page.active {
+  display: flex;
+}
+
+h1 {
+  font-family: 'Pacifico', cursive;
+  font-size: 2.4rem;
+  margin-bottom: 15px;
+}
+
+p {
+  font-size: 1.2rem;
+  max-width: 330px;
+  line-height: 1.7;
+}
+
+/* Cat Image */
+img {
+  width: 220px;
+  margin: 20px 0;
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Buttons */
+button {
+  margin-top: 30px;
+  padding: 12px 32px;
+  border: none;
+  border-radius: 30px;
+  background: white;
+  color: #ff4d4d;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  transition: transform 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes slideFade {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+/* Snow */
+.snow {
+  position: fixed;
+  top: -10px;
+  color: white;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to { transform: translateY(110vh); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔔 Christmas Bell Music -->
+<audio id="bgMusic" loop>
+  <source src="bells.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 🎄 PAGE 1 -->
+<div class="page active" id="page1">
+  <h1>🎄 Merry Christmas 🎄</h1>
+  <img src="cat.png" alt="Christmas Cat">
+  <button onclick="nextPage(2)">Next ➜</button>
+</div>
+
+<!-- 💖 PAGE 2 -->
+<div class="page" id="page2">
+  <h1>💖 Thank You 💖</h1>
+  <p>
+    Thank you for making my year so special.  
+    You truly mean a lot to me ✨
+  </p>
+  <button onclick="nextPage(3)">Next ➜</button>
+</div>
+
+<!-- 🎅 PAGE 3 -->
+<div class="page" id="page3">
+  <h1>🎅 Warm Wishes 🎅</h1>
+  <p>
+    May Santa fulfill all your wishes  
+    and fill your life with happiness 🎁❄️
+  </p>
+  <button onclick="nextPage(1)">🔁 Restart</button>
+</div>
+
+<script>
+let musicStarted = false;
+
+function nextPage(page) {
+  // Start music on first user interaction (mobile-safe)
+  if (!musicStarted) {
+    document.getElementById("bgMusic").play();
+    musicStarted = true;
+  }
+
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page' + page).classList.add('active');
+}
+
+/* Snow generator */
+for (let i = 0; i < 30; i++) {
+  let snow = document.createElement("div");
+  snow.className = "snow";
+  snow.innerHTML = "❄";
+  snow.style.left = Math.random() * 100 + "vw";
+  snow.style.animationDuration = 3 + Math.random() * 5 + "s";
+  snow.style.fontSize = 12 + Math.random() * 18 + "px";
+  document.body.appendChild(snow);
+}
+</script>
+
+</body>
+</html>
